@@ -14,17 +14,17 @@ jobs:
       - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
         if: failure()
 
-  nested-node-pre-post-on-failure:
+  nested-node-pre-post-on-composite-failure:
     runs-on: self-hosted
     steps:
       - uses: fhammerl/canary/nested-node-pre-post-on-success@main
         with:
           exit-code: 1
-  nested-node-pre-post-on-failure-job-failing:
+  nested-node-pre-post-on-composite-failure-job-failing:
     runs-on: self-hosted
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
+      - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
         with:
           exit-code: 1
         if: failure()
