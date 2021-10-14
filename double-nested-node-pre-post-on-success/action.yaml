@@ -1,0 +1,8 @@
+name: 'Nested node pre-post'
+description: 'Provide a description here'
+author: 'Your name or organization here'
+
+runs:
+    using: "composite"
+    steps:
+      - uses: fhammerl/canary/nested-node-pre-post-on-success@main

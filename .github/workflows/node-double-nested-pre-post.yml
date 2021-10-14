@@ -1,0 +1,9 @@
+name: Double Nested Node Action - Pre-Post Conditional
+on:
+  workflow_dispatch:
+
+jobs:
+  double-nested-node-pre-post-on-success:
+    runs-on: self-hosted
+    steps:
+      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
