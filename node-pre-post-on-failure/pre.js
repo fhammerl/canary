@@ -1,1 +1,1 @@
-throw 'Pre: This action should only be called on job failure!'
+console.log("Running pre for failure")

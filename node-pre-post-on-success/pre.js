@@ -1,1 +1,1 @@
-throw 'Post: This action should only be called on job success!'
+console.log("Running pre for success")

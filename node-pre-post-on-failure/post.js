@@ -1,1 +1,1 @@
-throw 'Post: This action should only be called on job failure!'
+console.log("Running post for failure")
