@@ -1,0 +1,28 @@
+
+name: Pre-Post Conditional
+
+on:
+  workflow_dispatch:
+
+jobs:
+  top-level-node:
+    runs-on: self-hosted
+    steps:
+      - uses: fhammerl/canary/node-pre-post-on-success@main
+
+  top-level-node-failure:
+    runs-on: self-hosted
+    steps:
+      - uses: fhammerl/canary/node-pre-post-on-failure@main
+  
+  composite-node:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
+
+  composite-node:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
