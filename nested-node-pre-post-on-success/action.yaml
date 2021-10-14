@@ -11,4 +11,5 @@ runs:
     using: "composite"
     steps:
       - run: exit ${{ inputs.exit-code }}
+        shell: bash
       - uses: fhammerl/canary/node-pre-post-on-success@main
