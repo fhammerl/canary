@@ -12,4 +12,4 @@ runs:
     steps:
       - run: exit ${{ inputs.exit-code }}
         shell: bash
-      - uses: ./node-pre-post-on-success@main
+      - uses: ./node-pre-post-on-success
