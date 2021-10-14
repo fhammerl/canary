@@ -1,5 +1,5 @@
 
-name: Nested Conditional
+name: Nested Composite Conditional Steps
 
 on:
   workflow_dispatch:

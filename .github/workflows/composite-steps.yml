@@ -1,11 +1,11 @@
 
-name: Basic Conditional
+name: Composite Conditional Steps
 
 on:
   workflow_dispatch:
 
 jobs:
-  happy-path:
+  action-success:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
@@ -20,7 +20,7 @@ jobs:
       - run: if [ -z "${{ steps.composite-action.outputs.always }}" ]; then exit 1; else echo "Success"; fi
         name: step-always
 
-  angry-path:
+  action-failure:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
