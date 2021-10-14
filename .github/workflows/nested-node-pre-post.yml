@@ -20,6 +20,7 @@ jobs:
       - uses: fhammerl/canary/nested-node-pre-post-on-success@main
         with:
           exit-code: 1
+        continue-on-error: true
   nested-node-pre-post-on-composite-failure-job-failing:
     runs-on: self-hosted
     steps:
