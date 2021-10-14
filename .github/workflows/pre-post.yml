@@ -13,4 +13,5 @@ jobs:
   composite-node:
     runs-on: self-hosted
     steps:
+      - uses: actions/checkout@v2
       - uses: fhammerl/canary/nested-node-pre-post-on-success@main
