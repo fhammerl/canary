@@ -5,6 +5,6 @@ runs:
   using: "node12"
   main: main.js
   post: post.js
-  post-if: always()
+  post-if: success()
   pre: pre.js
-  pre-if: always()
+  pre-if: success()
