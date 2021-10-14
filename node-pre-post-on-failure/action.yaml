@@ -5,6 +5,6 @@ runs:
   using: "node12"
   main: main.js
   post: post.js
-  post-if: ${{ !failure() }}
+  post-if: ${{ failure() != true }}
   pre: pre.js
-  pre-if: ${{ !failure() }}
+  pre-if: ${{ failure() != true }}

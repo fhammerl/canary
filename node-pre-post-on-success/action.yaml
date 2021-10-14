@@ -5,6 +5,6 @@ runs:
   using: "node12"
   main: main.js
   post: post.js
-  post-if: ${{ !success() }}
+  post-if: ${{ success() != true }}
   pre: pre.js
-  pre-if: ${{ !success() }}
+  pre-if: ${{ success() != true }}
