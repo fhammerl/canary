@@ -1,0 +1,12 @@
+
+name: Pre-Post Conditional
+
+on:
+  workflow_dispatch:
+
+jobs:
+  nested-conditionals:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - uses: fhammerl/canary/composite-conditional-node-success
