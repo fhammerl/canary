@@ -1,1 +1,1 @@
-console.log("Running post for success")
+console.log("Running post for success");

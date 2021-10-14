@@ -6,4 +6,5 @@ jobs:
   double-nested-node-pre-post-on-success:
     runs-on: self-hosted
     steps:
-      - uses: fhammerl/canary/double-nested-node-pre-post-on-success@main
+      - uses: actions/checkout@v2
+      - uses: ./double-nested-node-pre-post-on-success
