@@ -14,6 +14,7 @@ jobs:
       - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
         if: failure()
 
+# How to test this? We must fail these jobs to trigger pre-if: failure() and post-if: failure()
   nested-node-pre-post-on-composite-failure:
     runs-on: self-hosted
     steps:
