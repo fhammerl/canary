@@ -12,4 +12,4 @@ runs:
     steps:
       - run: exit ${{ inputs.exit-code }}
         shell: bash
-      - uses: fhammerl/canary/node-pre-post-on-success@main
+      - uses: ./canary/node-pre-post-on-success
