@@ -1,0 +1,9 @@
+name: Node Action (top-level)
+
+on:
+  workflow_dispatch:
+jobs:
+  action-success:
+    runs-on: self-hosted
+    steps:
+      - uses: fhammerl/canary/node-pre-post-on-success@main
