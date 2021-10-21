@@ -1,4 +1,4 @@
-name: [Should Fail] Failing Job - Composite Action Job Step with if:failure
+name: Failing Job - Composite Action Job Step with if:failure
 
 on:
   workflow_dispatch:
