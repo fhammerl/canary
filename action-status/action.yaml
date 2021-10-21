@@ -1,17 +1,23 @@
-name: 'Conditional Composite'
+name: 'Action Status'
 description: 'Test composite run step conditionals'
 inputs:
   exit-code:
     description: 'Action fails if set to non-zero'
     default: '0'
 
+outputs:
+  status-before:
+    description: "github.action_status BEFORE exit with exit-code?"
+  status-after:
+    description: "github.action_status AFTER exit with exit-code?"
+  
 runs:
     using: "composite"
     steps:
-      - run: echo ${{ github.action_status }}
-        name: Print gh status
+      - run: echo "::set-output name=status-before::${{github.action_status}}"
         shell: bash
-      - run: echo $ {{ inputs.exit-code }}
+      - run: exit ${{ inputs.exit-code }}
         shell: bash
-      - run: echo ${{ github.action_status }}
+      - run: echo "::set-output name=status-after::${{github.action_status}}"
         shell: bash
+        if: always()
