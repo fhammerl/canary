@@ -36,8 +36,8 @@ jobs:
 
       - uses: ./action-status
         id: action-status
-          with:
-            exit-code: 1
+        with:
+          exit-code: 1
 
       - run: if [[ ! -z "${{ github.action_status }}" ]]; then exit 1; else echo "Action status is not be available from job level"; fi
         name: Action status is not be available from job level
