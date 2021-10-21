@@ -25,6 +25,6 @@ jobs:
         name: step-always
         if: always()
 
-      - run: echo 'really fail'
+      - run: echo 'really fail' && exit 1
         name: TODO Slack webhook
-        if: steps.step-default.default || steps.step-default.success || steps.step-default.failed || steps.step-default.always
+        if: steps.step-default.failed || steps.step-success.failed || steps.step-failure.failed || steps.step-always.failed
