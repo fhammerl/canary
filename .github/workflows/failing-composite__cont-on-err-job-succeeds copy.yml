@@ -1,0 +1,18 @@
+name: Failing Composite Action - Job Succeeds with continue-on-error
+
+on:
+  workflow_dispatch:
+jobs:
+  runs-default-success-always:
+    name: Runs steps with no condition, success or always
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - uses: ./conditional-composite
+        id: composite-action
+        with: 
+          exit-code: 1
+        continue-on--error: true
+      - run: echo 'failure'
+        id: slack-webhoook
+        if: failure()
