@@ -1,0 +1,22 @@
+name: Failing Job - Composite Action Job Step with if:failure
+
+on:
+  workflow_dispatch:
+jobs:
+  runs-default-success-always:
+    name: Runs steps with no condition, success or always
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - run: exit 1
+      - uses: ./conditional-composite
+        id: composite-action
+        if: failure()
+      - run: if [ -z "${{ steps.composite-action.outputs.default }}" ]; then exit 1; else echo "'default()' Success"; fi
+        name: step-default
+      - run: if [ -z "${{ steps.composite-action.outputs.success }}" ]; then exit 1; else echo "'success()' Success"; fi
+        name: step-success
+      - run: if [ "${{ steps.composite-action.outputs.failure }}" ]; then exit 1; else echo "'failure()' Success"; fi
+        name: step-failure
+      - run: if [ -z "${{ steps.composite-action.outputs.always }}" ]; then exit 1; else echo "'always()' Success"; fi
+        name: step-always
