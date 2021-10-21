@@ -7,11 +7,14 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
+
       - run: echo ${{ github.action_status }}
+
       - uses: ./conditional-composite
         id: composite-action
-        if: ${{ github.action_status }}
+
+      - run: echo ${{ github.action_status }}
 
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
-        if: ${{ steps.step-default.outputs.failed || steps.step-success.outputs.failed || steps.step-failure.outputs.failed || steps.step-always.outputs.failed }} 
+        if: failure()
