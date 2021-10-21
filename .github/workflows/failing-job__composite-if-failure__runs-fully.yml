@@ -12,15 +12,19 @@ jobs:
       - uses: ./conditional-composite
         id: composite-action
         if: failure()
-      - run: if [ -z "${{ steps.composite-action.outputs.default }}" ]; then exit 1; else echo "'default()' Success"; fi
+      - run: if [ -z "${{ steps.composite-action.outputs.default }}" ]; then echo '::set-output name=failed::1'; else echo "'default()' Success"; fi
         name: step-default
         if: always()
-      - run: if [ -z "${{ steps.composite-action.outputs.success }}" ]; then exit 1; else echo "'success()' Success"; fi
+      - run: if [ -z "${{ steps.composite-action.outputs.success }}" ]; then echo '::set-output name=failed::1'; else echo "'success()' Success"; fi
         name: step-success
         if: always()
-      - run: if [[ ! -z "${{ steps.composite-action.outputs.failure }}" ]]; then exit 1; else echo "'failure()' Success"; fi
+      - run: if [[ ! -z "${{ steps.composite-action.outputs.failure }}" ]]; then echo '::set-output name=failed::1'; else echo "'failure()' Success"; fi
         name: step-failure
         if: always()
-      - run: if [ -z "${{ steps.composite-action.outputs.always }}" ]; then exit 1; else echo "'always()' Success"; fi
+      - run: if [ -z "${{ steps.composite-action.outputs.always }}" ]; then echo '::set-output name=failed::1'; else echo "'always()' Success"; fi
         name: step-always
         if: always()
+
+      - run: echo 'really fail'
+        name: TODO Slack webhook
+        if: steps.step-default.default || steps.step-default.success || steps.step-default.failed || steps.step-default.always
