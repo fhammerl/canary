@@ -12,7 +12,7 @@ jobs:
         id: composite-action
         with: 
           exit-code: 1
-        continue-on--error: true
+        continue-on-error: true
       - run: echo 'failure'
         id: slack-webhoook
         if: failure()
