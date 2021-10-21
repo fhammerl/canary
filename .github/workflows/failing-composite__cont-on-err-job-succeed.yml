@@ -3,7 +3,7 @@ name: Failing Composite Action - Job Succeeds with continue-on-error
 on:
   workflow_dispatch:
 jobs:
-  runs-default-success-always:
+  runs-job-with-failing-action:
     name: Runs steps with no condition, success or always
     runs-on: self-hosted
     steps:
@@ -16,4 +16,3 @@ jobs:
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
         if: failure()
-
