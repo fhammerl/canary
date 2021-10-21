@@ -8,12 +8,8 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: echo ${{ github.action_status }}
-
-      - uses: ./conditional-composite
+      - uses: ./action-status
         id: composite-action
-
-      - run: echo ${{ github.action_status }}
 
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook

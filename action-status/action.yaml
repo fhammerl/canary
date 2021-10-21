@@ -1,0 +1,12 @@
+name: 'Conditional Composite'
+description: 'Test composite run step conditionals'
+inputs:
+  exit-code:
+    description: 'Action fails if set to non-zero'
+    default: '0'
+
+runs:
+    using: "composite"
+    steps:
+      - run: echo {{ github.actions_status }}
+      - run: echo $ {{ inputs.exit-code }}
