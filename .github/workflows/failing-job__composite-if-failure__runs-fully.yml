@@ -12,7 +12,7 @@ jobs:
       - uses: ./conditional-composite
         id: composite-action
         if: failure()
-      - run: if [ -z "${{ steps.composite-action.outputs.default }}" ]; then echo '::set-output name=failed::1'; else echo "'default()' Success"; fi
+      - run: echo '::set-output name=failed::1'
         name: step-default
         if: always()
       - run: if [ -z "${{ steps.composite-action.outputs.success }}" ]; then echo '::set-output name=failed::1'; else echo "'success()' Success"; fi
