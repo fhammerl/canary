@@ -9,4 +9,6 @@ runs:
     using: "composite"
     steps:
       - run: echo {{ github.actions_status }}
+        shell: bash
       - run: echo $ {{ inputs.exit-code }}
+        shell: bash
