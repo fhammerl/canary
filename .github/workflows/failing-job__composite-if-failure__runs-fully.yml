@@ -26,5 +26,5 @@ jobs:
         if: always()
 
       - run: echo 'really fail' && exit 1
-        id: TODO Slack webhook
+        id: todo-slack-webhook
         if: ${{ steps.step-default.outputs.failed || steps.step-success.outputs.failed || steps.step-failure.outputs.failed || steps.step-always.outputs.failed }} 
