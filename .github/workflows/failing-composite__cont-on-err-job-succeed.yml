@@ -13,6 +13,7 @@ jobs:
         with: 
           exit-code: 1
         continue-on-error: true
-      - run: echo 'failure'
-        id: slack-webhoook
+      - run: echo 'in case of actual failure do slack webhook' && exit 1
+        id: todo-slack-webhook
         if: failure()
+
