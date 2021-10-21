@@ -12,22 +12,19 @@ jobs:
       - uses: ./conditional-composite
         id: composite-action
         if: failure()
-      - run: echo '::set-output name=failed::1'
-        name: step-default
+      - run: if [ -z "${{ steps.composite-action.outputs.default }}" ]; then echo '::set-output name=failed::1'; else echo "'default()' Success"; fi
+        id: step-default
         if: always()
       - run: if [ -z "${{ steps.composite-action.outputs.success }}" ]; then echo '::set-output name=failed::1'; else echo "'success()' Success"; fi
-        name: step-success
+        id: step-success
         if: always()
       - run: if [[ ! -z "${{ steps.composite-action.outputs.failure }}" ]]; then echo '::set-output name=failed::1'; else echo "'failure()' Success"; fi
-        name: step-failure
+        id: step-failure
         if: always()
       - run: if [ -z "${{ steps.composite-action.outputs.always }}" ]; then echo '::set-output name=failed::1'; else echo "'always()' Success"; fi
-        name: step-always
-        if: always()
-
-      - run: echo  '${{ steps.step-default.outputs.failed }}'
+        id: step-always
         if: always()
 
       - run: echo 'really fail' && exit 1
-        name: TODO Slack webhook
+        id: TODO Slack webhook
         if: ${{ steps.step-default.outputs.failed || steps.step-success.outputs.failed || steps.step-failure.outputs.failed || steps.step-always.outputs.failed }} 
