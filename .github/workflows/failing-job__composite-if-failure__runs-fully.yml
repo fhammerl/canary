@@ -28,7 +28,7 @@ jobs:
 
 
   check-correct-composite-steps-ran:
-    depends-on: runs-default-success-always
+    needs: runs-default-success-always
     name: Check correct composite steps ran
     runs-on: self-hosted
     steps:
