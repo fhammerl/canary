@@ -9,6 +9,7 @@ jobs:
       success: ${{ steps.composite-action.outputs.success }}
       failure: ${{ steps.composite-action.outputs.failure }}
       always: ${{ steps.composite-action.outputs.always }}
+    continue-on-error: true
     name: Runs steps with no condition, success or always
     runs-on: self-hosted
     steps:
@@ -19,7 +20,6 @@ jobs:
         if: always()
 
   check-correct-composite-steps-ran:
-    if: always()
     needs: runs-default-success-always
     name: Check correct composite steps ran
     runs-on: self-hosted
