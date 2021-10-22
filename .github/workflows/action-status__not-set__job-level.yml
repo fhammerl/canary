@@ -8,14 +8,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: if [[ ! -z "${{ github.action_status }}" ]]; then exit 1; else echo "Action status is not be available from job level"; fi
+      - run: exit 1
         name: Action status is not be available from job level
+        if: ${{ github.action_status }}
 
       - uses: ./action-status
         id: action-status
 
-      - run: if [[ ! -z "${{ github.action_status }}" ]]; then exit 1; else echo "Action status is not be available from job level"; fi
+      - run: exit 1
         name: Action status is not be available from job level
+        if: ${{ github.action_status }}
 
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
