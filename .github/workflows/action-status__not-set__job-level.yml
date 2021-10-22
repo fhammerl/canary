@@ -1,4 +1,4 @@
-name: Action Status - Composite Action Job Step with if:failure
+name: Action Status is not Set on Job level
 
 on:
   workflow_dispatch:

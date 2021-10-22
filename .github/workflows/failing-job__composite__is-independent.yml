@@ -1,4 +1,4 @@
-name: Failing Job - Composite Action Job Step with if:failure
+name: Failing Job - Composite Action's Steps are Independent
 
 on:
   workflow_dispatch:
@@ -21,9 +21,9 @@ jobs:
 
   check-correct-composite-steps-ran:
     needs: runs-default-success-always
-    name: Check correct composite steps ran
+    name: Check only default(), success and always() ran
     runs-on: self-hosted
     steps:
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
+      - run: exit 1
         id: todo-slack-webhook
         if: ${{ !(needs.runs-default-success-always.outputs.default && needs.runs-default-success-always.outputs.success && !needs.runs-default-success-always.outputs.failure && needs.runs-default-success-always.outputs.always) }}

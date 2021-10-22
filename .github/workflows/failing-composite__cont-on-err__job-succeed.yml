@@ -1,4 +1,4 @@
-name: Failing Composite Action - Job Succeeds with continue-on-error
+name: Failing Composite Action with continue-on-error - Job still Succeeds 
 
 on:
   workflow_dispatch:
@@ -13,6 +13,6 @@ jobs:
         with: 
           exit-code: 1
         continue-on-error: true
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
+      - run: exit 1
         id: todo-slack-webhook
         if: failure()

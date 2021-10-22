@@ -8,21 +8,21 @@ jobs:
     steps:
       - uses: fhammerl/canary/nested-node-pre-post-on-success@main
   nested-node-pre-post-on-success-job-failing:
+    continue-on-error: true
     runs-on: self-hosted
     steps:
       - run: exit 1
       - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
         if: failure()
 
-# How to test this? We must fail these jobs to trigger pre-if: failure() and post-if: failure()
   nested-node-pre-post-on-composite-failure:
     runs-on: self-hosted
     steps:
       - uses: fhammerl/canary/nested-node-pre-post-on-success@main
         with:
           exit-code: 1
-        continue-on-error: true
   nested-node-pre-post-on-composite-failure-job-failing:
+    continue-on-error: true
     runs-on: self-hosted
     steps:
       - run: exit 1

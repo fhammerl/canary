@@ -1,5 +1,5 @@
 
-name: Nested Composite Conditional Steps
+name: Action Statuses in Nested Conditionals are Independent from each other
 
 on:
   workflow_dispatch:

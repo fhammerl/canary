@@ -9,37 +9,24 @@ inputs:
     default: '0'
 
 outputs:
-  success:
-    description: "Did step run with default?"
-    value: ${{ steps.success.outputs.success }}
-  failure:
-    description: "Did step run with default?"
-    value: ${{ steps.failure.outputs.failure }}
-
+  status-error:
+    description: "Statuses should not match if exit-codes are different"
 
 runs:
     using: "composite"
     steps:
-      - run: echo ${{ github.action_status }}
-        name: Print gh status
-        shell: bash
-
-      - run: echo ${{ inputs.exit-code }}
-        shell: bash
-
       - uses: ./action-status
+        id: action-status
         with:
           exit-code: ${{ inputs.child-exit-code }}
 
-      - run: echo ${{ github.action_status }}
+      - run: exit ${{ inputs.exit-code }}
         shell: bash
 
-      - run: echo "::set-output name=failure::true"
-        id: failure
-        if: failure()
+      - run: if [ ${{ github.action_status == steps.action-status.status-after }} ] then echo "::set-output name=status-error::1"
         shell: bash
+        if: ${{ inputs.exit-code != inputs.child-exit-code }}
 
-      - run: echo "::set-output name=success::true"
-        id: success
-        if: success()
+      - run: if [ ${{ github.action_status != steps.action-status.status-after }} ] then echo "::set-output name=status-error::1"
         shell: bash
+        if: ${{ inputs.exit-code == inputs.child-exit-code }}
