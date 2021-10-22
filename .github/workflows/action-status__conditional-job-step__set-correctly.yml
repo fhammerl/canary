@@ -24,7 +24,7 @@ jobs:
 
       - run: exit 1
         name: Action status after should be 'Success'
-        if: steps.action-sta tus.outputs.status-after != 'Success'
+        if: steps.action-status.outputs.status-after != 'Success'
 
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
