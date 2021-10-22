@@ -24,14 +24,6 @@ jobs:
     name: Check correct composite steps ran
     runs-on: self-hosted
     steps:
-      # - run: echo 'in case of actual failure do slack webhook' && exit 1
-      #   id: todo-slack-webhook
-      #   if: ${{ needs.runs-default-success-always.outputs.default || needs.runs-default-success-always.outputs.success || needs.runs-default-success-always.outputs.failure || needs.runs-default-success-always.outputs.always }} 
-
-      # - run: echo 'in case of actual failure do slack webhook'
-      #   if: failure()
-
-      - run: echo '${{ needs.runs-default-success-always.outputs.default }}'
-      - run: echo '${{ needs.runs-default-success-always.outputs.success }}'
-      - run: echo '${{ needs.runs-default-success-always.outputs.failure }}'
-      - run: echo '${{ needs.runs-default-success-always.outputs.always }}'
+      - run: echo 'in case of actual failure do slack webhook' && exit 1
+        id: todo-slack-webhook
+        if: ${{ !(needs.runs-default-success-always.outputs.default && needs.runs-default-success-always.outputs.success && !needs.runs-default-success-always.outputs.failure && needs.runs-default-success-always.outputs.always) }}
