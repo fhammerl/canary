@@ -8,16 +8,30 @@ inputs:
 outputs:
   status-before:
     description: "github.action_status BEFORE exit with exit-code?"
+    value: steps.status-before.outputs.status
   status-after:
     description: "github.action_status AFTER exit with exit-code?"
+    value: steps.status-after.outputs.status
   
 runs:
     using: "composite"
     steps:
-      - run: echo "::set-output name=status-before::${{github.action_status}}"
+      - run: exit 1
+        name: Action status is set
+        if: !github.action_status
+
+      - run: echo "::set-output name=status::${{github.action_status}}"
+        id: status-before
         shell: bash
+
       - run: exit ${{ inputs.exit-code }}
         shell: bash
-      - run: echo "::set-output name=status-after::${{github.action_status}}"
+
+      - run: echo "::set-output name=status::${{github.action_status}}"
+        id: status-after
         shell: bash
         if: always()
+
+      - run: exit 1
+        name: Action status is set
+        if: !github.action_status
