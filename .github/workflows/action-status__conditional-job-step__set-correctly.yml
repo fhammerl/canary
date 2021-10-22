@@ -7,20 +7,24 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: if [[ ! -z "${{ github.action_status }}" ]]; then exit 1; else echo "Action status is not be available from job level"; fi
+      - run: exit 1
         name: Action status is not be available from job level
+        if: ${{ github.action_status }}
 
       - uses: ./action-status
         id: action-status
 
-      - run: if [[ ! -z "${{ github.action_status }}" ]]; then exit 1; else echo "Action status is not be available from job level"; fi
+      - run: exit 1
         name: Action status is not be available from job level
+        if: ${{ github.action_status }}
 
-      - run: if [[ "${{ steps.action_status.outputs.status-before }}" != "Success" ]]; then exit 1; fi
-        name: Action status should be "Success"
+      - run: exit 1
+        name: Action status before should be "Success"
+        if: ${{ steps.action-status.outputs.status-before != "Success" }}
 
-      - run: if [[ "${{ steps.action_status.outputs.status-after }}" != "Success" ]]; then exit 1; fi
-        name: Action status should be "Success"
+      - run: exit 1
+        name: Action status after should be "Success"
+        if: ${{ steps.action-status.outputs.status-after != "Success" }}
 
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
@@ -31,23 +35,26 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - run: if [[ ! -z "${{ github.action_status }}" ]]; then exit 1; else echo "Action status is not be available from job level"; fi
+      - run: exit 1
         name: Action status is not be available from job level
+        if: ${{ github.action_status }}
 
       - uses: ./action-status
         id: action-status
-        with:
-          exit-code: 1
 
-      - run: if [[ ! -z "${{ github.action_status }}" ]]; then exit 1; else echo "Action status is not be available from job level"; fi
+      - run: exit 1
         name: Action status is not be available from job level
+        if: ${{ github.action_status }}
 
-      - run: if [[ "${{ steps.action_status.outputs.status-before }}" != "Success" ]]; then exit 1; fi
-        name: Action status should be "Success"
+      - run: exit 1
+        name: Action status before should be "Failure"
+        if: ${{ steps.action-status.outputs.status-before != "Success" }}
 
-      - run: if [[ "${{ steps.action_status.outputs.status-after }}" != "Failure" ]]; then exit 1; fi
-        name: Action status should be "Failure"
+      - run: exit 1
+        name: Action status after should be "Failure"
+        if: ${{ steps.action-status.outputs.status-after != "Failure" }}
 
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
         if: failure()
+
