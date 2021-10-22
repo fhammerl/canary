@@ -41,6 +41,8 @@ jobs:
 
       - uses: ./action-status
         id: action-status
+        with:
+          exit-code: 1
 
       - run: exit 1
         name: Action status is not be available from job level
