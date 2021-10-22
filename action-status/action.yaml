@@ -8,10 +8,10 @@ inputs:
 outputs:
   status-before:
     description: "github.action_status BEFORE exit with exit-code?"
-    value: steps.status-before.outputs.status
+    value: ${{ steps.status-before.outputs.status }}
   status-after:
     description: "github.action_status AFTER exit with exit-code?"
-    value: steps.status-after.outputs.status
+    value: ${{ steps.status-after.outputs.status }}
   
 runs:
     using: "composite"
