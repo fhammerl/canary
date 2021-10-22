@@ -18,8 +18,6 @@ jobs:
         name: Action status is not be available from job level
         if: github.action_status
 
-      - run: echo ${{ steps.action-status.outputs.status-before }}
-
       - run: exit 1
         name: Action status before should be 'Success'
         if: ${{ steps.action-status.outputs.status-before != 'Success' }}
@@ -50,11 +48,11 @@ jobs:
 
       - run: exit 1
         name: Action status before should be 'Failure'
-        if: steps.action-status.outputs.status-before != 'Success'
+        if: ${{ steps.action-status.outputs.status-before != 'Success' }}
 
       - run: exit 1
         name: Action status after should be 'Failure'
-        if: steps.action-status.outputs.status-after != 'Failure'
+        if: ${{ steps.action-status.outputs.status-after != 'Failure' }}
 
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
