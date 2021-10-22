@@ -43,6 +43,7 @@ jobs:
         id: action-status
         with:
           exit-code: 1
+        continue-on-error: true
 
       - run: exit 1
         name: Action status is not be available from job level
