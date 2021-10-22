@@ -18,7 +18,7 @@ runs:
     steps:
       - run: exit 1
         name: Action status is set
-        if: !github.action_status
+        if: ! github.action_status
 
       - run: echo "::set-output name=status::${{github.action_status}}"
         id: status-before
@@ -34,4 +34,4 @@ runs:
 
       - run: exit 1
         name: Action status is set
-        if: !github.action_status
+        if: ! github.action_status
