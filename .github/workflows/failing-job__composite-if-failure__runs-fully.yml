@@ -4,6 +4,7 @@ on:
   workflow_dispatch:
 jobs:
   runs-default-success-always:
+    continue-on-error: true
     name: Runs steps with no condition, success or always
     runs-on: self-hosted
     steps:
