@@ -12,7 +12,7 @@ jobs:
       - run: exit 1
       - uses: ./conditional-composite
         id: composite-action
-        if: failure()
+        if: always()
       - run: if [ -z "${{ steps.composite-action.outputs.default }}" ]; then echo "'default()' Success"; else echo '::set-output name=success::1'; fi
         id: step-default
         if: always()
@@ -24,6 +24,9 @@ jobs:
         if: always()
       - run: if [ -z "${{ steps.composite-action.outputs.always }}" ]; then echo "'always()' Success"; else echo '::set-output name=success::1'; fi
         id: step-always
+        if: always()
+      - run: echo '::set-output name=test::1';
+        id: step-test
         if: always()
 
 
@@ -38,3 +41,6 @@ jobs:
 
       - run: echo 'in case of actual failure do slack webhook'
         if: failure()
+
+      - run: echo 'in case of actual failure do slack webhook'
+        if: needs.runs-default-success-always.steps.step-test.outputs.test
