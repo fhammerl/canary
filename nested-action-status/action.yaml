@@ -11,22 +11,23 @@ inputs:
 outputs:
   status-error:
     description: "Statuses should not match if exit-codes are different"
+    value: ${{ steps.status-error.outputs.status-error }}
 
 runs:
     using: "composite"
     steps:
+      - run: exit ${{ inputs.exit-code }}
+        shell: bash
+
       - uses: ./action-status
         id: action-status
         with:
           exit-code: ${{ inputs.child-exit-code }}
 
-      - run: exit ${{ inputs.exit-code }}
+      - run: if [ ${{ (inputs.exit-code != inputs.child-exit-code && github.action_status == steps.action-status.status-after) || (inputs.exit-code == inputs.child-exit-code && github.action_status != steps.action-status.status-after) }} ] then echo "::set-output name=status-error::1"
+        id: status-error
         shell: bash
 
-      - run: if [ ${{ github.action_status == steps.action-status.status-after }} ] then echo "::set-output name=status-error::1"
-        shell: bash
-        if: ${{ inputs.exit-code != inputs.child-exit-code }}
-
-      - run: if [ ${{ github.action_status != steps.action-status.status-after }} ] then echo "::set-output name=status-error::1"
-        shell: bash
-        if: ${{ inputs.exit-code == inputs.child-exit-code }}
+      - run: echo "::set-output name=success::1"
+      - run: echo "::set-output name=failure::1"
+        if: failure()
