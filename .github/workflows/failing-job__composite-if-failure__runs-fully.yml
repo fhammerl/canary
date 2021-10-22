@@ -4,6 +4,11 @@ on:
   workflow_dispatch:
 jobs:
   runs-default-success-always:
+    outputs:
+      default: ${{ steps.composite-action.outputs.default }}
+      success: ${{ steps.composite-action.outputs.success }}
+      failure: ${{ steps.composite-action.outputs.failure }}
+      always: ${{ steps.composite-action.outputs.always }}
     continue-on-error: true
     name: Runs steps with no condition, success or always
     runs-on: self-hosted
@@ -13,22 +18,6 @@ jobs:
       - uses: ./conditional-composite
         id: composite-action
         if: always()
-      - run: if [ -z "${{ steps.composite-action.outputs.default }}" ]; then echo "'default()' Success"; else echo '::set-output name=success::1'; fi
-        id: step-default
-        if: always()
-      - run: if [ -z "${{ steps.composite-action.outputs.success }}" ]; then echo "'success()' Success"; else echo '::set-output name=success::1'; fi
-        id: step-success
-        if: always()
-      - run: if [[ ! -z "${{ steps.composite-action.outputs.failure }}" ]]; then echo "'failure()' Success"; else echo '::set-output name=success::1'; fi
-        id: step-failure
-        if: always()
-      - run: if [ -z "${{ steps.composite-action.outputs.always }}" ]; then echo "'always()' Success"; else echo '::set-output name=success::1'; fi
-        id: step-always
-        if: always()
-      - run: echo '::set-output name=test::1';
-        id: step-test
-        if: always()
-
 
   check-correct-composite-steps-ran:
     needs: runs-default-success-always
@@ -37,10 +26,7 @@ jobs:
     steps:
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
-        if: ${{ needs.runs-default-success-always.steps.step-default.outputs.success || needs.runs-default-success-always.steps.step-success.outputs.success || needs.runs-default-success-always.steps.step-failure.outputs.success || needs.runs-default-success-always.steps.step-always.outputs.success }} 
+        if: ${{ needs.runs-default-success-always.outputs.success || needs.runs-default-success-always.outputs.success || needs.runs-default-success-always.outputs.success || needs.runs-default-success-always.outputs.success }} 
 
       - run: echo 'in case of actual failure do slack webhook'
         if: failure()
-
-      - run: echo 'in case of actual failure do slack webhook'
-        if: needs.runs-default-success-always.steps.step-test.outputs.test
