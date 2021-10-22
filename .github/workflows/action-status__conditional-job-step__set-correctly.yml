@@ -19,12 +19,12 @@ jobs:
         if: github.action_status
 
       - run: exit 1
-        name: Action status before should be "Success"
-        if: steps.action-status.outputs.status-before != "Success"
+        name: Action status before should be 'Success'
+        if: steps.action-status.outputs.status-before != 'Success'
 
       - run: exit 1
-        name: Action status after should be "Success"
-        if: steps.action-status.outputs.status-after != "Success"
+        name: Action status after should be 'Success'
+        if: steps.action-status.outputs.status-after != 'Success'
 
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
@@ -47,12 +47,12 @@ jobs:
         if: github.action_status
 
       - run: exit 1
-        name: Action status before should be "Failure"
-        if: steps.action-status.outputs.status-before != "Success"
+        name: Action status before should be 'Failure'
+        if: steps.action-status.outputs.status-before != 'Success'
 
       - run: exit 1
-        name: Action status after should be "Failure"
-        if: steps.action-status.outputs.status-after != "Failure"
+        name: Action status after should be 'Failure'
+        if: steps.action-status.outputs.status-after != 'Failure'
 
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
