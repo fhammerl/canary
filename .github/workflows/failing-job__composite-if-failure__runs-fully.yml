@@ -31,6 +31,7 @@ jobs:
     depends-on: runs-default-success-always
     name: Check correct composite steps ran
     runs-on: self-hosted
+    steps:
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
         if: ${{ runs-default-success-always.steps.step-default.outputs.failed || runs-default-success-always.steps.step-success.outputs.failed || runs-default-success-always.steps.step-failure.outputs.failed || runs-default-success-always.steps.step-always.outputs.failed }} 
