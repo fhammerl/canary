@@ -24,3 +24,7 @@ jobs:
         if: matrix.exit-code == 1 || matrix.child-exit-code == 1
       - run: if [ -z "${{ steps.composite-action.outputs.success }}" ]; then exit 1; else echo "Expected a success and got one!"; fi
         if: matrix.exit-code == 0 && matrix.child-exit-code == 0
+
+      - run: echo 'in case of actual failure do slack webhook' && exit 1
+        id: todo-slack-webhook
+        if: failure()

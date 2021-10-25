@@ -24,3 +24,7 @@ jobs:
       - run: exit 1
         name: status-error
         if: ${{ steps.nested-action-status.outputs.status-error }}
+
+      - run: echo 'in case of actual failure do slack webhook' && exit 1
+        id: todo-slack-webhook
+        if: failure()

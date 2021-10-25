@@ -1,4 +1,4 @@
-name: Failing Job - Composite Action's Steps are Independent
+name: Failing Job - Composite Action's Steps are Independent from Job's status
 
 on:
   workflow_dispatch:

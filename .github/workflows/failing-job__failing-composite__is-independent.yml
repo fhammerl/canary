@@ -26,6 +26,6 @@ jobs:
     name: Check only failure() and always() ran
     runs-on: self-hosted
     steps:
-      - run: exit 1
+      - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
         if: ${{ !(!needs.runs-default-success-always.outputs.default && !needs.runs-default-success-always.outputs.success && needs.runs-default-success-always.outputs.failure && needs.runs-default-success-always.outputs.always) }}
