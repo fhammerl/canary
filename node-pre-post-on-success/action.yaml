@@ -4,6 +4,8 @@ author: 'Your name or organization here'
 outputs:
   pre-result:
     description: 'Set to 1 if pre.js ran'
+  main-result:
+    description: 'Set to 1 if main.js ran'
   post-result:
     description: 'Set to 1 if post.js ran'
 runs:

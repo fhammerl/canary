@@ -10,6 +10,7 @@ jobs:
         id: action-success
     outputs:
       pre-result: ${{ steps.action-success.outputs.pre-result }}
+      main-result: ${{ steps.action-success.outputs.main-result }}
       post-result: ${{ steps.action-success.outputs.post-result }}
 
   action-success-check:
@@ -17,4 +18,5 @@ jobs:
     needs: action-success
     steps:
       - run: echo ${{ needs.action-success.outputs.pre-result }} 
+      - run: echo ${{ needs.action-success.outputs.main-result }} 
       - run: echo ${{ needs.action-success.outputs.post-result }} 
