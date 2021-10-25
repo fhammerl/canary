@@ -7,6 +7,13 @@ inputs:
   child-exit-code:
     description: 'Nested Action fails if set to non-zero'
     default: '0'
+outputs:
+  success: 
+    description: 'Set to 1 if action succeeded'
+    value: ${{ steps.success.result }}
+  failure: 
+    description: 'Set to 1 if action failed'
+    value: ${{ steps.success.failure }}
 
 outputs:
   status-error:
@@ -28,9 +35,11 @@ runs:
         id: status-error
         shell: bash
 
-      - run: echo "::set-output name=success::1"
+      - run: echo "::set-output name=result::1"
+        id: success
         shell: bash
 
-      - run: echo "::set-output name=failure::1"
+      - run: echo "::set-output name=result::1"
+        id: failure
         shell: bash
         if: failure()
