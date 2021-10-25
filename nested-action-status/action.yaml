@@ -10,10 +10,10 @@ inputs:
 outputs:
   success: 
     description: 'Set to 1 if action succeeded'
-    value: ${{ steps.success.result }}
+    value: ${{ steps.success.outputs.result }}
   failure: 
     description: 'Set to 1 if action failed'
-    value: ${{ steps.success.failure }}
+    value: ${{ steps.success.outputs.failure }}
 
 outputs:
   status-error:
