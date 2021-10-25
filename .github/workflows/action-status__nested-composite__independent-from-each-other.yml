@@ -20,10 +20,7 @@ jobs:
         with:
           exit-code: ${{matrix.exit-code}}
           child-exit-code: ${{matrix.child-exit-code}}
-      - run: if [ -z "${{ steps.nested-action-status.outputs.failure }}" ]; then exit 1; else echo "Expected a failure and got one!"; fi
-        if: ${{ matrix.exit-code == 1 || matrix.child-exit-code == 1 }}
-      - run: if [ -z "${{ steps.nested-action-status.outputs.success }}" ]; then exit 1; else echo "Expected a success and got one!"; fi
-        if: ${{ matrix.exit-code == 0 && matrix.child-exit-code == 0 }}
+
       - run: exit 1
         name: status-error
         if: ${{ steps.nested-action-status.outputs.status-error }}

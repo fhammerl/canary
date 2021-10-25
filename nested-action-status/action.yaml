@@ -7,15 +7,7 @@ inputs:
   child-exit-code:
     description: 'Nested Action fails if set to non-zero'
     default: '0'
-outputs:
-  success: 
-    description: 'Set to 1 if action succeeded'
-    value: ${{ steps.success.outputs.result }}
-  failure: 
-    description: 'Set to 1 if action failure'
-    value: ${{ steps.failure.outputs.result }}
-
-outputs:
+outputs:\
   status-error:
     description: "Statuses should not match if exit-codes are different"
     value: ${{ steps.status-error.outputs.status-error }}
@@ -34,12 +26,3 @@ runs:
       - run: if [ ${{ (inputs.exit-code != inputs.child-exit-code && github.action_status == steps.action-status.status-after) || (inputs.exit-code == inputs.child-exit-code && github.action_status != steps.action-status.status-after) }} ] then echo "::set-output name=status-error::1"
         id: status-error
         shell: bash
-
-      - run: echo "::set-output name=result::1"
-        id: success
-        shell: bash
-
-      - run: echo "::set-output name=result::1"
-        id: failure
-        shell: bash
-        if: failure()
