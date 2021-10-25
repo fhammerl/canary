@@ -23,6 +23,7 @@ runs:
         with:
           exit-code: ${{ inputs.child-exit-code }}
 
+      # asserts that actions_status works independently between actions
       - run: if [ ${{ (inputs.exit-code != inputs.child-exit-code && github.action_status == steps.action-status.status-after) || (inputs.exit-code == inputs.child-exit-code && github.action_status != steps.action-status.status-after) }} ] then echo "::set-output name=status-error::1"
         id: status-error
         shell: bash
