@@ -9,8 +9,8 @@ jobs:
       - uses: fhammerl/canary/node-pre-post-on-success@main
         id: action-success
     outputs:
-      pre-result: ${{ action-success.outputs.pre-result }}
-      post-result: ${{ action-success.outputs.post-result }}
+      pre-result: ${{ steps.action-success.outputs.pre-result }}
+      post-result: ${{ steps.action-success.outputs.post-result }}
 
   action-success-check:
     runs-on: self-hosted
