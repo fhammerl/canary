@@ -12,8 +12,8 @@ outputs:
     description: 'Set to 1 if action succeeded'
     value: ${{ steps.success.outputs.result }}
   failure: 
-    description: 'Set to 1 if action failed'
-    value: ${{ steps.success.outputs.failure }}
+    description: 'Set to 1 if action failure'
+    value: ${{ steps.failure.outputs.result }}
 
 outputs:
   status-error:
