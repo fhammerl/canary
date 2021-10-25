@@ -29,5 +29,8 @@ runs:
         shell: bash
 
       - run: echo "::set-output name=success::1"
+        shell: bash
+
       - run: echo "::set-output name=failure::1"
+        shell: bash
         if: failure()
