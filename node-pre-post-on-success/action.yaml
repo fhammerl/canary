@@ -1,10 +1,15 @@
 name: 'Your name here'
 description: 'Provide a description here'
 author: 'Your name or organization here'
+outputs:
+  pre-result:
+    description: 'Set to 1 if pre.js ran'
+  post-result:
+    description: 'Set to 1 if post.js ran'
 runs:
   using: "node12"
   main: main.js
   pre: pre.js
   pre-if: success()
   post: post.js
-  post-if: failure()
+  post-if: success()
