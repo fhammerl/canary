@@ -3,14 +3,14 @@ on:
   workflow_dispatch:
 
 jobs:
-  nested-node-pre-post-on-success:
+  node-pre-post-on-success:
     runs-on: self-hosted
     steps:
-      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
+      - uses: fhammerl/canary/node-pre-post-on-success@main
 
-  nested-node-pre-post-on-success-check:
+  node-pre-post-on-success-check:
     runs-on: self-hosted
-    needs: nested-node-pre-post-on-success
+    needs: node-pre-post-on-success
     steps:
       - uses: actions/github-script@v5
         with:
@@ -33,7 +33,7 @@ jobs:
             }
 
             getSuccessJobIdFromRunId(run_id).then(response => {
-                const job_id = response.data.jobs.filter(job => job.name == "nested-node-pre-post-on-success")[0].id;
+                const job_id = response.data.jobs.filter(job => job.name == "node-pre-post-on-success")[0].id;
                 getJobLogs(job_id).then(logs => {
                     if (logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1).length == 0) {
                         throw 'Pre-step did not run!'
@@ -54,17 +54,17 @@ jobs:
         if: failure()
 
       
-  nested-node-pre-post-on-success-job-failing:
+  node-pre-post-on-success-job-failing:
     continue-on-error: true
     runs-on: self-hosted
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
+      - uses: fhammerl/canary/node-pre-post-on-failure@main
         if: failure()
 
-  nested-node-pre-post-on-success-job-failing-check:
+  node-pre-post-on-success-job-failing-check:
     runs-on: self-hosted
-    needs: nested-node-pre-post-on-success-job-failing
+    needs: node-pre-post-on-success-job-failing
     steps:
       - uses: actions/github-script@v5
         with:
@@ -87,7 +87,7 @@ jobs:
             }
 
             getSuccessJobIdFromRunId(run_id).then(response => {
-                const job_id = response.data.jobs.filter(job => job.name == "nested-node-pre-post-on-success-job-failing")[0].id;
+                const job_id = response.data.jobs.filter(job => job.name == "node-pre-post-on-success-job-failing")[0].id;
                 getJobLogs(job_id).then(logs => {
                     if (logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1).length == 0) {
                         throw 'Pre-step did not run!'
@@ -108,17 +108,17 @@ jobs:
         if: failure()
 
 
-  nested-node-pre-post-on-composite-failure:
+  node-pre-post-on-composite-failure:
     continue-on-error: true
     runs-on: self-hosted
     steps:
-      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
+      - uses: fhammerl/canary/node-pre-post-on-success@main
         with:
           exit-code: 1
 
-  nested-node-pre-post-on-composite-failure-check:
+  node-pre-post-on-composite-failure-check:
     runs-on: self-hosted
-    needs: nested-node-pre-post-on-composite-failure
+    needs: node-pre-post-on-composite-failure
     steps:
       - uses: actions/github-script@v5
         with:
@@ -141,7 +141,7 @@ jobs:
             }
 
             getSuccessJobIdFromRunId(run_id).then(response => {
-                const job_id = response.data.jobs.filter(job => job.name == "nested-node-pre-post-on-composite-failure")[0].id;
+                const job_id = response.data.jobs.filter(job => job.name == "node-pre-post-on-composite-failure")[0].id;
                 getJobLogs(job_id).then(logs => {
                     if (logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1).length == 0) {
                         throw 'Pre-step did not run!'
@@ -161,19 +161,19 @@ jobs:
         id: todo-slack-webhook
         if: failure()
 
-  nested-node-pre-post-on-composite-failure-job-failing:
+  node-pre-post-on-composite-failure-job-failing:
     continue-on-error: true
     runs-on: self-hosted
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
+      - uses: fhammerl/canary/node-pre-post-on-failure@main
         with:
           exit-code: 1
         if: failure()
 
-  nested-node-pre-post-on-composite-failure-job-failing-check:
+  node-pre-post-on-composite-failure-job-failing-check:
       runs-on: self-hosted
-      needs: nested-node-pre-post-on-composite-failure-job-failing
+      needs: node-pre-post-on-composite-failure-job-failing
       steps:
         - uses: actions/github-script@v5
           with:
@@ -196,7 +196,7 @@ jobs:
               }
 
               getSuccessJobIdFromRunId(run_id).then(response => {
-                  const job_id = response.data.jobs.filter(job => job.name == "nested-node-pre-post-on-composite-failure-job-failing")[0].id;
+                  const job_id = response.data.jobs.filter(job => job.name == "node-pre-post-on-composite-failure-job-failing")[0].id;
                   getJobLogs(job_id).then(logs => {
                       if (logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1).length == 0) {
                           throw 'Pre-step did not run!'
