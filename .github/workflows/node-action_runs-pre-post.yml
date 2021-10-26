@@ -2,25 +2,17 @@ name: Node Action (top-level)
 
 on:
   workflow_dispatch:
-  push:
 jobs:
   action-success:
     runs-on: self-hosted
     steps:
       - uses: fhammerl/canary/node-pre-post-on-success@main
         id: action-success
-      - run: echo "${{ github.job }}"
-      - run: echo "${{ github.run_id }}"
 
   action-success-check:
     runs-on: self-hosted
     needs: action-success
-    id: rhis-jov
     steps:
-      - run: echo "${{ github.job }}"
-      - run: echo "${{ github.job_id }}"
-      - run: echo "${{ github.run_id }}"
-      
       - uses: actions/github-script@v5
         with:
           script: |
@@ -44,8 +36,20 @@ jobs:
             getSuccessJobIdFromRunId(run_id).then(response => {
                 const job_id = response.data.jobs.filter(job => job.name == "action-success")[0].id;
                 getJobLogs(job_id).then(logs => {
-                    console.log(logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1));
-                    console.log(logs.data.split(/\r?\n/).filter(line => line.indexOf("MAIN-STEP-COMPLETE")!= -1));
-                    console.log(logs.data.split(/\r?\n/).filter(line => line.indexOf("POST-STEP-COMPLETE")!= -1));
+                    if (logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1).length == 0) {
+                        throw 'Pre-step did not run!'
+                    }
+                    if (logs.data.split(/\r?\n/).filter(line => line.indexOf("MAIN-STEP-COMPLETE") != -1).length == 0) {
+                        throw 'Main step did not run!'
+                    }
+                    if (logs.data.split(/\r?\n/).filter(line => line.indexOf("POST-STEP-COMPLETE") != -1).length == 0) {
+                        throw 'Post-step did not run!'
+                    }
+
+                    console.log("All checks successful!")
                 });
             });
+
+      - run: echo 'in case of actual failure do slack webhook' && exit 1
+        id: todo-slack-webhook
+        if: failure()
