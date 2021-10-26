@@ -1,1 +1,1 @@
-console.log("running the main action for failure");
+console.log("MAIN-STEP-" + "COMPLETED");

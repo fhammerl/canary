@@ -1,9 +1,9 @@
-name: Node Action (top-level)
+name: Node Action runs if:success pre and post
 
 on:
   workflow_dispatch:
 jobs:
-  action-success:
+  node-action:
     runs-on: self-hosted
     steps:
       - uses: fhammerl/canary/node-pre-post-on-success@main
@@ -11,7 +11,7 @@ jobs:
 
   action-success-check:
     runs-on: self-hosted
-    needs: action-success
+    needs: node-action
     steps:
       - uses: actions/github-script@v5
         with:
@@ -34,7 +34,7 @@ jobs:
             }
 
             getSuccessJobIdFromRunId(run_id).then(response => {
-                const job_id = response.data.jobs.filter(job => job.name == "action-success")[0].id;
+                const job_id = response.data.jobs.filter(job => job.name == "node-action")[0].id;
                 getJobLogs(job_id).then(logs => {
                     if (logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1).length == 0) {
                         throw 'Pre-step did not run!'

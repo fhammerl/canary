@@ -18,7 +18,7 @@ runs:
       - run: exit ${{ inputs.exit-code }}
         shell: bash
 
-      - uses: ./action-status
+      - uses: /action-status
         id: action-status
         with:
           exit-code: ${{ inputs.child-exit-code }}

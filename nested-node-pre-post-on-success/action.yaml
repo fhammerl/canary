@@ -13,3 +13,4 @@ runs:
       - run: exit ${{ inputs.exit-code }}
         shell: bash
       - uses: ./node-pre-post-on-success
+        if: always()
