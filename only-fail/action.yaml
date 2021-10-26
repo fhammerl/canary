@@ -6,5 +6,3 @@ runs:
   main: main.js
   post: post.js
   post-if: failure()
-  pre: pre.js
-  pre-if: failure()
