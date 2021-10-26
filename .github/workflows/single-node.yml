@@ -24,7 +24,7 @@ jobs:
           script: |
             const run_id = ${{ github.run_id }};
             async function getSuccessJobIdFromRunId(run_id) {
-                return await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs', {
+                return await github.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs', {
                     owner: 'fhammerl',
                     repo: 'canary',
                     run_id
@@ -32,7 +32,7 @@ jobs:
             }
 
             async function getJobLogs(job_id) {
-                return await octokit.rest.actions.downloadJobLogsForWorkflowRun({
+                return await github.rest.actions.downloadJobLogsForWorkflowRun({
                     owner: 'fhammerl',
                     repo: 'canary',
                     job_id
