@@ -8,7 +8,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
+      - uses: fhammerl/canary/only-fail@main
         if: failure()
       - run: echo "${{job.status}}"
         if: always()

@@ -1,0 +1,15 @@
+name: 'Nested node pre-post failure'
+description: 'Provide a description here'
+author: 'Your name or organization here'
+
+inputs:
+  exit-code:
+    description: 'Action fails if set to non-zero'
+    default: '0'
+runs:
+    using: "composite"
+    steps:
+      - run: exit ${{ inputs.exit-code }}
+        shell: bash
+      - uses: fhammerl/canary/only-fail@main
+        if: always()
