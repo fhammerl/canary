@@ -22,28 +22,28 @@ jobs:
       - uses: actions/github-script@v5
         with:
           script: |
-          const run_id = ${{ github.run_id }};
-          async function getSuccessJobIdFromRunId(run_id) {
-              return await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs', {
-                  owner: 'fhammerl',
-                  repo: 'canary',
-                  run_id
-              })
-          }
+            const run_id = ${{ github.run_id }};
+            async function getSuccessJobIdFromRunId(run_id) {
+                return await octokit.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs', {
+                    owner: 'fhammerl',
+                    repo: 'canary',
+                    run_id
+                })
+            }
 
-          async function getJobLogs(job_id) {
-              return await octokit.rest.actions.downloadJobLogsForWorkflowRun({
-                  owner: 'fhammerl',
-                  repo: 'canary',
-                  job_id
-              })
-          }
+            async function getJobLogs(job_id) {
+                return await octokit.rest.actions.downloadJobLogsForWorkflowRun({
+                    owner: 'fhammerl',
+                    repo: 'canary',
+                    job_id
+                })
+            }
 
-          getSuccessJobIdFromRunId(run_id).then(response => {
-              const job_id = response.data.jobs.filter(job => job.name == "action-success")[0].id;
-              getJobLogs(job_id).then(logs => {
-                  console.log(logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1));
-                  console.log(logs.data.split(/\r?\n/).filter(line => line.indexOf("MAIN-STEP-COMPLETE")!= -1));
-                  console.log(logs.data.split(/\r?\n/).filter(line => line.indexOf("POST-STEP-COMPLETE")!= -1));
-              });
-          });
+            getSuccessJobIdFromRunId(run_id).then(response => {
+                const job_id = response.data.jobs.filter(job => job.name == "action-success")[0].id;
+                getJobLogs(job_id).then(logs => {
+                    console.log(logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1));
+                    console.log(logs.data.split(/\r?\n/).filter(line => line.indexOf("MAIN-STEP-COMPLETE")!= -1));
+                    console.log(logs.data.split(/\r?\n/).filter(line => line.indexOf("POST-STEP-COMPLETE")!= -1));
+                });
+            });
