@@ -6,7 +6,7 @@ jobs:
   node-pre-post-on-success:
     runs-on: self-hosted
     steps:
-      - uses: fhammerl/canary/node-pre-post-on-success@main
+      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
 
   node-pre-post-on-success-check:
     runs-on: self-hosted
@@ -59,7 +59,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/node-pre-post-on-failure@main
+      - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
         if: failure()
 
   node-pre-post-on-success-job-failing-check:
@@ -112,7 +112,7 @@ jobs:
     continue-on-error: true
     runs-on: self-hosted
     steps:
-      - uses: fhammerl/canary/node-pre-post-on-success@main
+      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
         with:
           exit-code: 1
 
@@ -166,7 +166,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/node-pre-post-on-failure@main
+      - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
         with:
           exit-code: 1
         if: failure()
