@@ -17,6 +17,7 @@ jobs:
     needs: action-success
     steps:
       - run: echo "${{ github.job }}"
+      - run: echo "${{ github.job_id }}"
       - run: echo "${{ github.run_id }}"
       
       - uses: actions/github-script@v5
