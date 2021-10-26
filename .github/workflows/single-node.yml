@@ -15,6 +15,7 @@ jobs:
   action-success-check:
     runs-on: self-hosted
     needs: action-success
+    id: rhis-jov
     steps:
       - run: echo "${{ github.job }}"
       - run: echo "${{ github.job_id }}"
