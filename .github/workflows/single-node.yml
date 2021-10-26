@@ -9,9 +9,12 @@ jobs:
     steps:
       - uses: fhammerl/canary/node-pre-post-on-success@main
         id: action-success
+      - run: echo "${{ github.job }}"
+      - run: echo "${{ github.run_id }}"
 
   action-success-check:
     runs-on: self-hosted
     needs: action-success
     steps:
-      - run: echo ${{ toJSON(needs.action-success) }}
+      - run: echo "${{ github.job }}"
+      - run: echo "${{ github.run_id }}"
