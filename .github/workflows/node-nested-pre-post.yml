@@ -115,6 +115,7 @@ jobs:
       - uses: fhammerl/canary/nested-node-pre-post-on-success@main
         with:
           exit-code: 1
+        continue-on-error: true
 
   node-pre-post-on-composite-failure-check:
     runs-on: self-hosted
