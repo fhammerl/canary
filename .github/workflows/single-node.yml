@@ -2,21 +2,16 @@ name: Node Action (top-level)
 
 on:
   workflow_dispatch:
+  push:
 jobs:
   action-success:
     runs-on: self-hosted
     steps:
       - uses: fhammerl/canary/node-pre-post-on-success@main
         id: action-success
-    outputs:
-      pre-result: ${{ steps.action-success.outputs.pre-result }}
-      main-result: ${{ steps.action-success.outputs.main-result }}
-      post-result: ${{ steps.action-success.outputs.post-result }}
 
   action-success-check:
     runs-on: self-hosted
     needs: action-success
     steps:
-      - run: echo ${{ needs.action-success.outputs.pre-result }} 
-      - run: echo ${{ needs.action-success.outputs.main-result }} 
-      - run: echo ${{ needs.action-success.outputs.post-result }} 
+      - run: echo ${{ toJSON(needs.action-success) }}
