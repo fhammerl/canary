@@ -1,4 +1,4 @@
-name: Failing Job - Node Action doesn't run if:success pre and post
+name: Failing Job - Node Action runs if:failure pre and post
 
 on:
   workflow_dispatch:
