@@ -3,7 +3,7 @@ name: runner-conditional-steps
 on:
   workflow_dispatch:
 jobs:
-  runs-default-success-always-job-success:
+  job-failing-composite-success-runs-default-success-always:
     outputs:
       default: ${{ steps.composite-action.outputs.default }}
       success: ${{ steps.composite-action.outputs.success }}
@@ -19,16 +19,16 @@ jobs:
         id: composite-action
         if: always()
 
-  runs-default-success-always-job-success-check:
-    needs: runs-default-success-always-job-success
+  job-failing-composite-success-runs-default-success-always-check:
+    needs: job-failing-composite-success-runs-default-success-always
     name: Check only default(), success and always() ran
     runs-on: self-hosted
     steps:
       - run: exit 1
         id: todo-slack-webhook
-        if: ${{ !(needs.runs-default-success-always-job-success.outputs.default && needs.runs-default-success-always-job-success.outputs.success && !needs.runs-default-success-always-job-success.outputs.failure && needs.runs-default-success-always-job-success.outputs.always) }}
+        if: ${{ !(needs.job-failing-composite-success-runs-default-success-always.outputs.default && needs.job-failing-composite-success-runs-default-success-always.outputs.success && !needs.job-failing-composite-success-runs-default-success-always.outputs.failure && needs.job-failing-composite-success-runs-default-success-always.outputs.always) }}
   
-  runs-failure-always-job-failing:
+  job-failing-composite-failing-runs-default-success-always:
     outputs:
       default: ${{ steps.composite-action.outputs.default }}
       success: ${{ steps.composite-action.outputs.success }}
@@ -46,11 +46,11 @@ jobs:
         id: composite-action
         if: always()
 
-  runs-failure-always-job-failing-check:
-    needs: runs-failure-always-job-failing
+  job-failing-composite-failing-runs-default-success-always-check:
+    needs: job-failing-composite-failing-runs-default-success-always
     name: Check only failure() and always() ran
     runs-on: self-hosted
     steps:
       - run: echo 'in case of actual failure do slack webhook' && exit 1
         id: todo-slack-webhook
-        if: ${{ !(!needs.runs-failure-always-job-failing.outputs.default && !needs.runs-failure-always-job-failing.outputs.success && needs.runs-failure-always-job-failing.outputs.failure && needs.runs-failure-always-job-failing.outputs.always) }}
+        if: ${{ !(!needs.job-failing-composite-failing-runs-default-success-always.outputs.default && !needs.job-failing-composite-failing-runs-default-success-always.outputs.success && needs.job-failing-composite-failing-runs-default-success-always.outputs.failure && needs.job-failing-composite-failing-runs-default-success-always.outputs.always) }}
