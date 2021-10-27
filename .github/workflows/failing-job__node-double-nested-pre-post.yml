@@ -11,7 +11,7 @@ jobs:
       - uses: fhammerl/canary/double-nested-node-pre-post-on-failure@main
         if: always()
 
-  double-nested-on-failure:
+  double-nested-on-failure-check:
     runs-on: self-hosted
     needs: double-nested-on-failure
     steps:
