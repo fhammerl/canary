@@ -1,4 +1,4 @@
-name: Runs pre and post conditions correctly
+name: runner-node-conditionals
 on:
   workflow_dispatch:
 

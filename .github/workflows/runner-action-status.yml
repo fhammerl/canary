@@ -1,4 +1,4 @@
-name: Action Status in Composite Actions
+name: runner-action-status
 on:
   workflow_dispatch:
 jobs:
