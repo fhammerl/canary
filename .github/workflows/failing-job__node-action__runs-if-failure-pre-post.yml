@@ -39,8 +39,8 @@ jobs:
             getSuccessJobIdFromRunId(run_id).then(response => {
                 const job_id = response.data.jobs.filter(job => job.name == "node-action")[0].id;
                 getJobLogs(job_id).then(logs => {
-                    if (logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1).length == 0) {
-                        throw 'Pre-step did not run!'
+                    if (logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1).length != 0) {
+                        throw 'Pre-step ran but job is failed later on step 1'
                     }
                     if (logs.data.split(/\r?\n/).filter(line => line.indexOf("MAIN-STEP-COMPLETE") != -1).length == 0) {
                         throw 'Main step did not run!'
