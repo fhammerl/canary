@@ -19,7 +19,7 @@ jobs:
         id: composite-action
         if: always()
 
-  runs-default-success-always-job-success:
+  runs-default-success-always-job-success-check:
     needs: runs-default-success-always
     name: Check only default(), success and always() ran
     runs-on: self-hosted
