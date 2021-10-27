@@ -1,0 +1,56 @@
+name: Failing Job - Composite Action's Steps are Independent from Job's status
+
+on:
+  workflow_dispatch:
+jobs:
+  runs-default-success-always-job-success:
+    outputs:
+      default: ${{ steps.composite-action.outputs.default }}
+      success: ${{ steps.composite-action.outputs.success }}
+      failure: ${{ steps.composite-action.outputs.failure }}
+      always: ${{ steps.composite-action.outputs.always }}
+    continue-on-error: true
+    name: Runs steps with no condition, success or always
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - run: exit 1
+      - uses: ./conditional-composite
+        id: composite-action
+        if: always()
+
+  runs-default-success-always-job-success:
+    needs: runs-default-success-always
+    name: Check only default(), success and always() ran
+    runs-on: self-hosted
+    steps:
+      - run: exit 1
+        id: todo-slack-webhook
+        if: ${{ !(needs.runs-default-success-always.outputs.default && needs.runs-default-success-always.outputs.success && !needs.runs-default-success-always.outputs.failure && needs.runs-default-success-always.outputs.always) }}
+  
+  runs-failure-always-job-failing:
+    outputs:
+      default: ${{ steps.composite-action.outputs.default }}
+      success: ${{ steps.composite-action.outputs.success }}
+      failure: ${{ steps.composite-action.outputs.failure }}
+      always: ${{ steps.composite-action.outputs.always }}
+    continue-on-error: true
+    name: Runs steps with no condition, success or always
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      - run: exit 1
+      - uses: ./conditional-composite
+        with:
+          exit-code: 1
+        id: composite-action
+        if: always()
+
+  runs-failure-always-job-failing-check:
+    needs: runs-default-success-always
+    name: Check only failure() and always() ran
+    runs-on: self-hosted
+    steps:
+      - run: echo 'in case of actual failure do slack webhook' && exit 1
+        id: todo-slack-webhook
+        if: ${{ !(!needs.runs-default-success-always.outputs.default && !needs.runs-default-success-always.outputs.success && needs.runs-default-success-always.outputs.failure && needs.runs-default-success-always.outputs.always) }}
