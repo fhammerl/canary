@@ -1,4 +1,4 @@
-name: Failing Job - Composite Action's Steps are Independent from Job's status
+name: runner-conditional-steps
 
 on:
   workflow_dispatch:
