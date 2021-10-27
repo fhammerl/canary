@@ -1,4 +1,4 @@
-name: Nested Node Action
+name: Runs pre and post conditions correctly
 on:
   workflow_dispatch:
 
@@ -6,7 +6,8 @@ jobs:
   on-success:
     runs-on: self-hosted
     steps:
-      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
+      - uses: fhammerl/canary/node-pre-post-on-success@main
+        id: action-success
 
   on-success-check:
     runs-on: self-hosted
@@ -53,6 +54,56 @@ jobs:
         id: todo-slack-webhook
         if: failure()
 
+  on-nested-success:
+    runs-on: self-hosted
+    steps:
+      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
+
+  on-nested-success-check:
+    runs-on: self-hosted
+    needs: on-nested-success
+    steps:
+      - uses: actions/github-script@v5
+        with:
+          script: |
+            const run_id = ${{ github.run_id }};
+            async function getSuccessJobIdFromRunId(run_id) {
+                return await github.request('GET /repos/{owner}/{repo}/actions/runs/{run_id}/jobs', {
+                    owner: 'fhammerl',
+                    repo: 'canary',
+                    run_id
+                })
+            }
+
+            async function getJobLogs(job_id) {
+                return await github.rest.actions.downloadJobLogsForWorkflowRun({
+                    owner: 'fhammerl',
+                    repo: 'canary',
+                    job_id
+                })
+            }
+
+            getSuccessJobIdFromRunId(run_id).then(response => {
+                const job_id = response.data.jobs.filter(job => job.name == "on-nested-success")[0].id;
+                getJobLogs(job_id).then(logs => {
+                    if (logs.data.split(/\r?\n/).filter(line => line.indexOf("PRE-STEP-COMPLETE") != -1).length == 0) {
+                        throw 'Pre-step did not run!'
+                    }
+                    if (logs.data.split(/\r?\n/).filter(line => line.indexOf("MAIN-STEP-COMPLETE") != -1).length == 0) {
+                        throw 'Main step did not run!'
+                    }
+                    if (logs.data.split(/\r?\n/).filter(line => line.indexOf("POST-STEP-COMPLETE") != -1).length == 0) {
+                        throw 'Post-step did not run!'
+                    }
+
+                    console.log("All checks successful!")
+                });
+            });
+
+      - run: echo 'in case of actual failure do slack webhook' && exit 1
+        id: todo-slack-webhook
+        if: failure()
+
       
   on-failure-job-failing:
     continue-on-error: true
@@ -61,8 +112,6 @@ jobs:
       - run: exit 1
       - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
         if: failure()
-      - run: echo "${{job.status}}"
-        if: always()
 
   on-failure-job-failing-check:
     runs-on: self-hosted
