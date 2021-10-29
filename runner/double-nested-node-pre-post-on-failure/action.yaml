@@ -5,4 +5,4 @@ author: 'Your name or organization here'
 runs:
     using: "composite"
     steps:
-      - uses: ./runner/nested-node-pre-post-on-failure
+      - uses: fhammerl/canary/runner/nested-node-pre-post-on-failure@main

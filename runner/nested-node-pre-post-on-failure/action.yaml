@@ -11,5 +11,5 @@ runs:
     steps:
       - run: exit ${{ inputs.exit-code }}
         shell: bash
-      - uses: ./runner/node-pre-post-on-failure
+      - uses: fhammerl/canary/runner/node-pre-post-on-failure@main
         if: always()
