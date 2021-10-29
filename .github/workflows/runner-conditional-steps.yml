@@ -25,7 +25,6 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: exit 1
-        id: todo-slack-webhook
         if: ${{ !(needs.job-failing-composite-success-runs-default-success-always.outputs.default && needs.job-failing-composite-success-runs-default-success-always.outputs.success && !needs.job-failing-composite-success-runs-default-success-always.outputs.failure && needs.job-failing-composite-success-runs-default-success-always.outputs.always) }}
   
   job-failing-composite-failing-runs-default-success-always:
@@ -51,6 +50,5 @@ jobs:
     name: Check only failure() and always() ran
     runs-on: self-hosted
     steps:
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
-        id: todo-slack-webhook
+      - run: exit 1
         if: ${{ !(!needs.job-failing-composite-failing-runs-default-success-always.outputs.default && !needs.job-failing-composite-failing-runs-default-success-always.outputs.success && needs.job-failing-composite-failing-runs-default-success-always.outputs.failure && needs.job-failing-composite-failing-runs-default-success-always.outputs.always) }}

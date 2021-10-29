@@ -50,10 +50,6 @@ jobs:
                 });
             });
 
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
-        id: todo-slack-webhook
-        if: failure()
-
   on-success-nested:
     runs-on: self-hosted
     steps:
@@ -99,10 +95,6 @@ jobs:
                     console.log("All checks successful!")
                 });
             });
-
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
-        id: todo-slack-webhook
-        if: failure()
 
       
   on-failure-job-failing:
@@ -153,10 +145,6 @@ jobs:
                     console.log("All checks successful!")
                 });
             });
-
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
-        id: todo-slack-webhook
-        if: failure()
 
 
   on-failure-composite-failing-job-success:
@@ -209,10 +197,6 @@ jobs:
                 });
             });
 
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
-        id: todo-slack-webhook
-        if: failure()
-
   on-failure-composite-failing-job-failing:
     continue-on-error: true
     runs-on: self-hosted
@@ -263,10 +247,6 @@ jobs:
                       console.log("All checks successful!")
                   });
               });
-
-        - run: echo 'in case of actual failure do slack webhook' && exit 1
-          id: todo-slack-webhook
-          if: failure()
   
   on-failure-double-nested-job-failing:
     runs-on: self-hosted
@@ -316,10 +296,6 @@ jobs:
                     console.log("All checks successful!")
                 });
             });
-
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
-        id: todo-slack-webhook
-        if: failure()
 
   on-failure:
     runs-on: self-hosted
@@ -371,10 +347,6 @@ jobs:
                 });
             });
 
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
-        id: todo-slack-webhook
-        if: failure()
-
   on-success-job-failing:
     runs-on: self-hosted
     continue-on-error: true
@@ -425,6 +397,3 @@ jobs:
                 });
             });
 
-      - run: echo 'in case of actual failure do slack webhook' && exit 1
-        id: todo-slack-webhook
-        if: failure()
