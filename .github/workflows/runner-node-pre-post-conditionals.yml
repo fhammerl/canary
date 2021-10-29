@@ -1,4 +1,4 @@
-name: runner-node-conditionals
+name: runner-node-pre-post-conditionals
 on:
   workflow_dispatch:
 
