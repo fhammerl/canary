@@ -6,7 +6,7 @@ jobs:
   on-success:
     runs-on: self-hosted
     steps:
-      - uses: ./runner/node-pre-post-on-success
+      - uses: fhammerl/canary/runner/node-pre-post-on-success@main
         id: action-success
 
   on-success-check:
@@ -54,7 +54,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
-      - uses: ./runner/nested-node-pre-post-on-success
+      - uses: fhammerl/canary/runner/nested-node-pre-post-on-success@main
 
   on-success-nested-check:
     runs-on: self-hosted
@@ -104,7 +104,7 @@ jobs:
     steps:
       - run: exit 1
       - uses: actions/checkout@v2
-      - uses: ./runner/nested-node-pre-post-on-failure
+      - uses: fhammerl/canary/runner/nested-node-pre-post-on-failure@main
         if: failure()
 
   on-failure-job-failing-check:
@@ -153,7 +153,7 @@ jobs:
     continue-on-error: true
     runs-on: self-hosted
     steps:
-      - uses: ./runner/nested-node-pre-post-on-success
+      - uses: fhammerl/canary/runner/nested-node-pre-post-on-success@main
         with:
           exit-code: 1
         continue-on-error: true
@@ -205,7 +205,7 @@ jobs:
     steps:
       - run: exit 1
       - uses: actions/checkout@v2
-      - uses: ./runner/nested-node-pre-post-on-failure
+      - uses: fhammerl/canary/runner/nested-node-pre-post-on-failure@main
         with:
           exit-code: 1
         if: failure()
@@ -258,7 +258,7 @@ jobs:
     steps:
       - run: exit 1
       - uses: actions/checkout@v2
-      - uses: ./runner/double-nested-node-pre-post-on-failure
+      - uses: fhammerl/canary/runner/double-nested-node-pre-post-on-failure@main
         if: always()
 
   on-failure-double-nested-job-failing-check:
@@ -308,7 +308,7 @@ jobs:
     steps:
       - run: exit 1
       - uses: actions/checkout@v2
-      - uses: ./runner/node-pre-post-on-failure
+      - uses: fhammerl/canary/runner/node-pre-post-on-failure@main
         id: action-success
         if: failure()
 
@@ -359,7 +359,7 @@ jobs:
     steps:
       - run: exit 1
       - uses: actions/checkout@v2
-      - uses: ./runner/node-pre-post-on-success
+      - uses: fhammer/canary/runner/node-pre-post-on-success@main
         id: action-success
         if: failure()
 
