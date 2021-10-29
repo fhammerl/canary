@@ -359,7 +359,7 @@ jobs:
     steps:
       - run: exit 1
       - uses: actions/checkout@v2
-      - uses: fhammer/canary/runner/node-pre-post-on-success@main
+      - uses: fhammerl/canary/runner/node-pre-post-on-success@main
         id: action-success
         if: failure()
 
