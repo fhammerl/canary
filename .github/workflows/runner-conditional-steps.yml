@@ -15,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: exit 1
-      - uses: ./composite-conditional-steps
+      - uses: ./runner/composite-conditional-steps
         id: composite-action
         if: always()
 
@@ -39,7 +39,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: exit 1
-      - uses: ./composite-conditional-steps
+      - uses: ./runner/composite-conditional-steps
         with:
           exit-code: 1
         id: composite-action

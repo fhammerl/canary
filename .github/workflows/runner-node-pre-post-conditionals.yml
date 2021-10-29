@@ -6,7 +6,7 @@ jobs:
   on-success:
     runs-on: self-hosted
     steps:
-      - uses: fhammerl/canary/node-pre-post-on-success@main
+      - uses: ./runner/node-pre-post-on-success
         id: action-success
 
   on-success-check:
@@ -53,7 +53,8 @@ jobs:
   on-success-nested:
     runs-on: self-hosted
     steps:
-      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
+      - uses: actions/checkout@v2
+      - uses: ./runner/nested-node-pre-post-on-success
 
   on-success-nested-check:
     runs-on: self-hosted
@@ -102,7 +103,8 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
+      - uses: actions/checkout@v2
+      - uses: ./runner/nested-node-pre-post-on-failure
         if: failure()
 
   on-failure-job-failing-check:
@@ -151,7 +153,7 @@ jobs:
     continue-on-error: true
     runs-on: self-hosted
     steps:
-      - uses: fhammerl/canary/nested-node-pre-post-on-success@main
+      - uses: ./runner/nested-node-pre-post-on-success
         with:
           exit-code: 1
         continue-on-error: true
@@ -202,7 +204,8 @@ jobs:
     runs-on: self-hosted
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/nested-node-pre-post-on-failure@main
+      - uses: actions/checkout@v2
+      - uses: ./runner/nested-node-pre-post-on-failure
         with:
           exit-code: 1
         if: failure()
@@ -211,6 +214,7 @@ jobs:
       runs-on: self-hosted
       needs: on-failure-composite-failing-job-failing
       steps:
+        - uses: actions/checkout@v2
         - uses: actions/github-script@v5
           with:
             script: |
@@ -253,7 +257,8 @@ jobs:
     continue-on-error: true
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/double-nested-node-pre-post-on-failure@main
+      - uses: actions/checkout@v2
+      - uses: ./runner/double-nested-node-pre-post-on-failure
         if: always()
 
   on-failure-double-nested-job-failing-check:
@@ -302,7 +307,8 @@ jobs:
     continue-on-error: true
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/node-pre-post-on-failure@main
+      - uses: actions/checkout@v2
+      - uses: ./runner/node-pre-post-on-failure
         id: action-success
         if: failure()
 
@@ -352,7 +358,8 @@ jobs:
     continue-on-error: true
     steps:
       - run: exit 1
-      - uses: fhammerl/canary/node-pre-post-on-success@main
+      - uses: actions/checkout@v2
+      - uses: ./runner/node-pre-post-on-success
         id: action-success
         if: failure()
 
