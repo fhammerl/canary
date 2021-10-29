@@ -22,7 +22,7 @@ runs:
       - run: exit ${{ inputs.exit-code }}
         shell: bash
 
-      - uses: ./conditional-composite
+      - uses: ./composite-conditional-steps
         id: composite-action
         with:
           exit-code: ${{ inputs.child-exit-code }}

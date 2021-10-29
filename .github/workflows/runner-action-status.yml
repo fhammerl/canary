@@ -114,7 +114,7 @@ jobs:
         child-exit-code: [0, 1]
     steps:
       - uses: actions/checkout@v2
-      - uses: ./nested-conditional-composite
+      - uses: ./nested-composite-conditional-steps
         id: composite-action
         continue-on-error: true
         with:
@@ -133,7 +133,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
-      - uses: ./conditional-composite
+      - uses: ./composite-conditional-steps
         id: composite-action
         with: 
           exit-code: 1
