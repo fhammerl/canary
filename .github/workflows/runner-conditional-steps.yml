@@ -11,7 +11,7 @@ jobs:
       always: ${{ steps.composite-action.outputs.always }}
     continue-on-error: true
     name: Runs steps with no condition, success or always
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: exit 1
@@ -22,7 +22,7 @@ jobs:
   job-failing-composite-success-runs-default-success-always-check:
     needs: job-failing-composite-success-runs-default-success-always
     name: Check only default(), success and always() ran
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - run: exit 1
         if: ${{ !(needs.job-failing-composite-success-runs-default-success-always.outputs.default && needs.job-failing-composite-success-runs-default-success-always.outputs.success && !needs.job-failing-composite-success-runs-default-success-always.outputs.failure && needs.job-failing-composite-success-runs-default-success-always.outputs.always) }}
@@ -35,7 +35,7 @@ jobs:
       always: ${{ steps.composite-action.outputs.always }}
     continue-on-error: true
     name: Runs steps with no condition, success or always
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - run: exit 1
@@ -48,7 +48,7 @@ jobs:
   job-failing-composite-failing-runs-default-success-always-check:
     needs: job-failing-composite-failing-runs-default-success-always
     name: Check only failure() and always() ran
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - run: exit 1
         if: ${{ !(!needs.job-failing-composite-failing-runs-default-success-always.outputs.default && !needs.job-failing-composite-failing-runs-default-success-always.outputs.success && needs.job-failing-composite-failing-runs-default-success-always.outputs.failure && needs.job-failing-composite-failing-runs-default-success-always.outputs.always) }}

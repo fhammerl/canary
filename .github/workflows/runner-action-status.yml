@@ -3,7 +3,7 @@ on:
   workflow_dispatch:
 jobs:
   action-status-set-correctly-action-success:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -27,7 +27,7 @@ jobs:
         if: ${{ steps.action-status.outputs.status-after != 'Success' }}
 
   action-status-set-correctly-action-failure:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -54,7 +54,7 @@ jobs:
         if: ${{ steps.action-status.outputs.status-after != 'Failure' }}
 
   nested-conditional-statuses-independent-from-each-other:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -75,7 +75,7 @@ jobs:
 
   
   action-status-not-set-on-job-level:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
 
@@ -91,7 +91,7 @@ jobs:
         if: ${{ github.action_status }}
 
   nested-conditional-conditional-results-independent-from-each-other:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
@@ -111,7 +111,7 @@ jobs:
         if: matrix.exit-code == 0 && matrix.child-exit-code == 0
 
   failing-composite-with-continue-on-error-does-not-fail-job:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: ./runner/composite-conditional-steps

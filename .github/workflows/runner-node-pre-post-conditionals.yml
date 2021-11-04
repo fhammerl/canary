@@ -4,13 +4,13 @@ on:
 
 jobs:
   on-success:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: fhammerl/canary/runner/node-pre-post-on-success@main
         id: action-success
 
   on-success-check:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: on-success
     steps:
       - uses: actions/github-script@v5
@@ -51,13 +51,13 @@ jobs:
             });
 
   on-success-nested:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - uses: fhammerl/canary/runner/nested-node-pre-post-on-success@main
 
   on-success-nested-check:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: on-success-nested
     steps:
       - uses: actions/github-script@v5
@@ -100,7 +100,7 @@ jobs:
       
   on-failure-job-failing:
     continue-on-error: true
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - run: exit 1
       - uses: actions/checkout@v2
@@ -108,7 +108,7 @@ jobs:
         if: failure()
 
   on-failure-job-failing-check:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: on-failure-job-failing
     steps:
       - uses: actions/github-script@v5
@@ -151,7 +151,7 @@ jobs:
 
   on-failure-composite-failing-job-success:
     continue-on-error: true
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - uses: fhammerl/canary/runner/nested-node-pre-post-on-success@main
         with:
@@ -159,7 +159,7 @@ jobs:
         continue-on-error: true
 
   on-failure-composite-failing-job-success-check:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: on-failure-composite-failing-job-success
     steps:
       - uses: actions/github-script@v5
@@ -201,7 +201,7 @@ jobs:
 
   on-failure-composite-failing-job-failing:
     continue-on-error: true
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     steps:
       - run: exit 1
       - uses: actions/checkout@v2
@@ -211,7 +211,7 @@ jobs:
         if: failure()
 
   on-composite-failure-job-failing-check:
-      runs-on: self-hosted
+      runs-on: ubuntu-latest
       needs: on-failure-composite-failing-job-failing
       steps:
         - uses: actions/checkout@v2
@@ -253,7 +253,7 @@ jobs:
               });
   
   on-failure-double-nested-job-failing:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - run: exit 1
@@ -262,7 +262,7 @@ jobs:
         if: always()
 
   on-failure-double-nested-job-failing-check:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: on-failure-double-nested-job-failing
     steps:
       - uses: actions/github-script@v5
@@ -303,7 +303,7 @@ jobs:
             });
 
   on-failure:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - run: exit 1
@@ -313,7 +313,7 @@ jobs:
         if: failure()
 
   on-failure-check:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: on-failure
     steps:
       - uses: actions/github-script@v5
@@ -354,7 +354,7 @@ jobs:
             });
 
   on-success-job-failing:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     continue-on-error: true
     steps:
       - run: exit 1
@@ -364,7 +364,7 @@ jobs:
         if: failure()
 
   on-success-job-failing-check:
-    runs-on: self-hosted
+    runs-on: ubuntu-latest
     needs: on-success-job-failing
     steps:
       - uses: actions/github-script@v5
